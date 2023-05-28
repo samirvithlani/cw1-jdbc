@@ -8,6 +8,89 @@ import java.util.Scanner;
 import com.util.DBConnection;
 
 public class UserController {
+	
+	public void deleteUserByName() {
+		
+		Connection conn = DBConnection.getDBConnection();
+		Scanner sc = new Scanner(System.in);
+		if(conn!=null) {
+			
+			
+			//statement creation
+			
+			
+			try {
+				Statement stmt = conn.createStatement();
+				
+				//create Query
+				System.out.println("enter name to delete...");
+				String name  =sc.next();
+				String deleteSQL = "delete from users where uname = '"+name+"'";
+				//submit query to db;
+				
+				int res = stmt.executeUpdate(deleteSQL);
+				if(res>0) {
+					
+					System.out.println(res + " raws deleted....");
+				}
+				else {
+					System.out.println(res + " raws deleted....");
+				}
+				
+				
+				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
+
+		
+	}
+	public void deleteUser() {
+		
+		//connection
+		
+		Connection conn = DBConnection.getDBConnection();
+		Scanner sc = new Scanner(System.in);
+		if(conn!=null) {
+			
+			
+			//statement creation
+			
+			
+			try {
+				Statement stmt = conn.createStatement();
+				
+				//create Query
+				System.out.println("enter id to delete...");
+				int id = sc.nextInt();
+				String deleteSQL = "delete from users where uid = "+id+"";
+				//submit query to db;
+				
+				int res = stmt.executeUpdate(deleteSQL);
+				if(res>0) {
+					
+					System.out.println(res + " raws deleted....");
+				}
+				else {
+					System.out.println(res + " raws deleted....");
+				}
+				
+				
+				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
+	}
 
 	public void addUser() {
 
@@ -48,7 +131,9 @@ public class UserController {
 	public static void main(String[] args) {
 
 		UserController controller = new UserController();
-		controller.addUser();
+		//controller.addUser(); switch case...
+		//controller.deleteUser();
+		controller.deleteUserByName();
 
 	}
 }
