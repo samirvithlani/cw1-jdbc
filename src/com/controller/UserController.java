@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
@@ -127,13 +128,45 @@ public class UserController {
 		}
 
 	}
+	//resultSet
+	
+	public void getAllUsers() {
+		//connectino
+		Connection conn = DBConnection.getDBConnection();
+		if(conn!=null) {
+			
+			try {
+				Statement stmt = conn.createStatement();
+				String selectSQL = "select * from users";
+				ResultSet rs = stmt.executeQuery(selectSQL);
+				System.out.println("UID  NAME  AGE");
+				while(rs.next()) {
+					System.out.print(" "+rs.getInt("uid"));
+					System.out.print(" "+rs.getString("uname"));
+					System.out.print(" "+rs.getInt("uage"));
+					System.out.println();
+					
+				}
+								
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
+		
+		
+	}
 
 	public static void main(String[] args) {
 
 		UserController controller = new UserController();
-		//controller.addUser(); switch case...
+		//controller.addUser(); //switch case...
 		//controller.deleteUser();
-		controller.deleteUserByName();
+		//controller.deleteUserByName();
+		controller.getAllUsers();
 
 	}
 }
